@@ -73,7 +73,7 @@ func main() {
 	// And for the cleanup
 	_, err = db.ExecContext(ctx, `DROP TABLE names`)
 	if err != nil {
-		log.Fatalf("Failed to delete the row: %v", err)
+		log.Printf("Failed to drop table: %v\n", err)
 	}
 	_, err = db.ExecContext(ctx, `CREATE TABLE names(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -84,7 +84,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to create table: %v", err)
 	}
-	rs, err := db.ExecContext(ctx, `INSERT INTO names(first, last) VALUES (?, ?)`, "JANE", "SMITH")
+	rs, err := db.ExecContext(ctx, `INSERT INTO names(first, last) VALUES (?, ?)`, "Brian", "Ketelsen")
 	if err != nil {
 		log.Fatalf("Failed to insert values into tables: %v", err)
 	}
