@@ -35,7 +35,7 @@ func main() {
 	// Register stats and trace exporters to export the collected data.
 	serviceName := os.Getenv("SERVICE_NAME")
 	if len(serviceName) == 0 {
-		serviceName = "go-app"
+		serviceName = "censusai"
 	}
 	fmt.Printf(serviceName)
 	agentEndpoint := os.Getenv("OCAGENT_TRACE_EXPORTER_ENDPOINT")
