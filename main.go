@@ -24,8 +24,8 @@ import (
 	"time"
 
 	ocagent "contrib.go.opencensus.io/exporter/ocagent"
-	"github.com/basvanbeek/ocsql"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/opencensus-integrations/ocsql"
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/plugin/ochttp/propagation/tracecontext"
 	"go.opencensus.io/trace"
