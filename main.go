@@ -53,11 +53,11 @@ func main() {
 
 	driverName, err := ocsql.Register("sqlite3", ocsql.WithAllTraceOptions())
 	if err != nil {
-		log.Fatalf("Failed to register the ocsql driver: %v", err)
+		log.Panicf("Failed to register the ocsql driver: %v", err)
 	}
 	db, err := sql.Open(driverName, "resource.db")
 	if err != nil {
-		log.Fatalf("Failed to open the SQL database: %v", err)
+		log.Panicf("Failed to open the SQL database: %v", err)
 	}
 	defer func() {
 		db.Close()
@@ -82,16 +82,16 @@ func main() {
         )`)
 
 	if err != nil {
-		log.Fatalf("Failed to create table: %v", err)
+		log.Panicf("Failed to create table: %v", err)
 	}
 	rs, err := db.ExecContext(ctx, `INSERT INTO names(first, last) VALUES (?, ?)`, "Brian", "Ketelsen")
 	if err != nil {
-		log.Fatalf("Failed to insert values into tables: %v", err)
+		log.Panicf("Failed to insert values into tables: %v", err)
 	}
 
 	id, err := rs.LastInsertId()
 	if err != nil {
-		log.Fatalf("Failed to retrieve lastInserted ID: %v", err)
+		log.Panicf("Failed to retrieve lastInserted ID: %v", err)
 	}
 
 	trace.RegisterExporter(exporter)
@@ -128,12 +128,12 @@ func main() {
 		}
 		n1 := new(name)
 		if err := row.Scan(&n1.Id, &n1.First, &n1.Last); err != nil {
-			log.Fatalf("Failed to fetch row: %v", err)
+			log.Panicf("Failed to fetch row: %v", err)
 		}
 
 		fmt.Fprintf(w, "hello %s", n1.First)
 	})
 
-	log.Fatal(http.ListenAndServe(":50030", &ochttp.Handler{Propagation: &tracecontext.HTTPFormat{}}))
+	log.Panic(http.ListenAndServe(":50030", &ochttp.Handler{Propagation: &tracecontext.HTTPFormat{}}))
 
 }
